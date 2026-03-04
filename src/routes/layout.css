@@ -1,0 +1,127 @@
+@import 'tailwindcss';
+@plugin '@tailwindcss/forms';
+@plugin '@tailwindcss/typography';
+
+@theme {
+  --color-cream: #f2ede4;
+  --color-cream-dark: #e8e2d8;
+  --color-ink: #0d0d0d;
+  --color-ink-soft: #3a3530;
+  --color-muted: #8c857c;
+  --color-border: #0d0d0d;
+  --color-red: #e63329;
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Mono', 'Courier New', monospace;
+}
+
+:root {
+  color-scheme: light;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: #f2ede4;
+  color: #0d0d0d;
+  font-family: 'Inter', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: #e8e2d8; }
+::-webkit-scrollbar-thumb { background: #0d0d0d; border-radius: 0; }
+::-webkit-scrollbar-thumb:hover { background: #3a3530; }
+
+/* Selection */
+::selection { background: #e63329; color: #f2ede4; }
+
+/* ── GSAP / Animations ─────────────────────────────────────────── */
+
+@keyframes fadeSlideLeft {
+  from { opacity: 0; transform: translateX(24px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* Page transition overlay */
+.page-overlay {
+  transform-origin: top;
+}
+
+/* Custom cursor: hide on touch devices */
+@media (pointer: coarse) {
+  .cursor-ring, .cursor-dot { display: none !important; }
+}
+
+@keyframes clipReveal {
+  from { clip-path: inset(0 100% 0 0); }
+  to   { clip-path: inset(0 0% 0 0); }
+}
+
+/* Page preloader — CSS only, no JS needed */
+.page-preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #0d0d0d;
+  pointer-events: none;
+  transform-origin: top;
+  animation: preloader-out 0.7s cubic-bezier(0.76, 0, 0.24, 1) 0.2s forwards;
+}
+
+@keyframes preloader-out {
+  from { transform: scaleY(1); }
+  to   { transform: scaleY(0); }
+}
+
+/* Marquee scroll strip */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.marquee-track { animation: marquee 25s linear infinite; }
+.marquee-track:hover { animation-play-state: paused; }
+
+/* Brutalist hover: link underline wipe */
+.brut-link {
+  position: relative;
+  text-decoration: none;
+}
+.brut-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: #0d0d0d;
+  transition: width 0.25s ease;
+}
+.brut-link:hover::after { width: 100%; }
+
+/* ── Admin input utilities (keep for admin panel) ─────────────── */
+.input {
+  display: block;
+  width: 100%;
+  background: #111;
+  border: 1px solid #1a1a1a;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 14px;
+  color: #ededed;
+  outline: none;
+  transition: border-color 0.15s, background 0.15s;
+}
+.input:focus { border-color: #333; background: #1a1a1a; }
+.input::placeholder { color: #444; }
+
+.label {
+  display: block;
+  font-size: 11px;
+  color: #555;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 6px;
+}
